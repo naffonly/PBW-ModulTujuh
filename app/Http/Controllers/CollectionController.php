@@ -20,7 +20,6 @@ class CollectionController extends Controller
     public function index()
     {
         //
-
         return view('koleksi.daftarKoleksi');
     }
     /**
@@ -56,7 +55,6 @@ class CollectionController extends Controller
             'jumlahKoleksi' => $request->jumlahKoleksi,
         ]);
 
-        
         return view('koleksi.daftarKoleksi');
     }
 
