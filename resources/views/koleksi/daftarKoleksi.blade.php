@@ -11,12 +11,14 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="contrainer">
                         <div class="row form-inline">
-                    
+                        {{ $dataTable->table() }} 
                         </div> 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    @push('scripts')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush
 </x-app-layout>

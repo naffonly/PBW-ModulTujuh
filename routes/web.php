@@ -28,7 +28,7 @@ Route::get('getAllCollections',[CollectionController::class,''])
         ->middleware(['auth','verified']);
 
 
-Route::get('koleksi',[CollectionController::class,'index']);
+Route::get('koleksi',[CollectionController::class,'index'])->name('collections.index');
 Route::get('koleksiTambah',[CollectionController::class,'create']);
 Route::post('koleksiStore',[CollectionController::class,'store'])->name('koleksiStore');
 Route::get('koleksiView/{collection}',[CollectionController::class,'show'])->name('koleksiView');

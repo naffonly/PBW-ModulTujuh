@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CollectionsDataTable;
 use App\Models\Collection;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,10 +18,10 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CollectionsDataTable $dataTable)
     {
         //
-        return view('koleksi.daftarKoleksi');
+        return $dataTable->render('koleksi.daftarKoleksi');
     }
     /**
      * Show the form for creating a new resource.
