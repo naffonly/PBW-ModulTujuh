@@ -11,21 +11,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="contrainer">
                         <div class="row form-inline">
-                             <table class="table table-striped table-hover" id="datatable">
-                                <thead>
-                                    <th>No</th>
-                                    <th>Judul</th>
-                                    <th>Jenis</th>
-                                    <th>Jumlah</th>
-                                    <th>Opsi</th>
-                                </thead>
-                                <tbody>
-                            </tbody>
-                            </table>   
+                    
                         </div> 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>

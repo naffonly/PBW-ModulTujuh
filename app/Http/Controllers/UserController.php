@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\DataTables\UsersDataTable;
 class UserController extends Controller
 {
     /**
@@ -13,10 +14,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
         //
-        return view('user.daftarPengguna');
+        return $dataTable->render('user.daftarPengguna');
+      
     }
 
     /**
@@ -53,8 +55,6 @@ class UserController extends Controller
             'username.unique' => 'Username telah digunakan',
             'birthdate.before' => 'Tanggal lahir harus sebelum hari ini'
         ]);
-
-
         $user = User::create([
             'username' => $request->username,
             'fullname' => $request->fullname,
@@ -64,7 +64,6 @@ class UserController extends Controller
             'phoneNumber' => $request->phoneNumber,
             'birthdate' => $request->birthdate,
         ]);
-
         return view('user.daftarPengguna');
     }
 
@@ -74,7 +73,8 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    
+     public function show(User $user)
     {
         //
         return view('user.infoPengguna');
@@ -98,6 +98,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, User $user)
     {
         //

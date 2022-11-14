@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('user',[UserController::class,'index']);
+Route::get('user',[UserController::class,'index'])->name('users.index');
 Route::get('userRegistration',[UserController::class,'create']);
 Route::post('userStore',[UserController::class,'store'])->name('userStore');
 Route::get('userView/{user}',[UserController::class,'show'])->name('userView');
@@ -35,5 +36,9 @@ Route::get('koleksiView/{collection}',[CollectionController::class,'show'])->nam
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
 
 require __DIR__.'/auth.php';
