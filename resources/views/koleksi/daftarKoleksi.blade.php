@@ -67,9 +67,9 @@ columns: [
 { data: 'id', name: 'id' },
 { data: 'judul', name: 'judul' },
 { data: 'jenis', name: 'jenis' },   
-{ data: 'jumlahawal', name: 'jumlahawal' },
-{ data: 'jumlahsisa', name: 'jumlahsisa' },
-{ data: 'jumlahkeluar', name: 'jumlahkeluar' },
+{ data: 'jumlahAwal', name: 'jumlahAwal' },
+{ data: 'jumlahSisa', name: 'jumlahSisa' },
+{ data: 'jumlahKeluar', name: 'jumlahKeluar' },
 {data: 'action', name: 'action', orderable: false},
 ],
 order: [[0, 'desc']]

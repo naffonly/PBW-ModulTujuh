@@ -45,21 +45,23 @@ class CollectionController extends Controller
     {
         //
         $request->validate([
-            'namaKoleksi' => ['required', 'string', 'max:255'],
-            'jenisKoleksi' => ['required', 'Integer', 'max:255'],
-            'jumlahAwal' => ['required'],
-            'jumlahSisa' => ['required'],
-            'jumlahKeluar' => ['required']
-        ]);
+            'namaKoleksi' => ['required', 'string', 'max:255', 'unique:collections'],
+            'jenisKoleksi' => ['required', 'gt:0'],
+            'jumlah' => ['required', 'gt:0'],
+        ],
+        [
+            'namaKoleksi.unique' => 'Nama koleksi tersebut ada'
+        ]
+        );
 
-        $collection = Collection::create([
+        $collection = [
             'namaKoleksi' => $request->namaKoleksi,
             'jenisKoleksi' => $request->jenisKoleksi,
-            'jumlahAwal' => $request->jumlahAwal,
-            'jumlahSisa' => $request->jumlahSisa,
-            'jumlahKeluar' => $request->jumlahKeluar,
-        ]);
-
+            'jumlahAwal' => $request->jumlah,
+            'jumlahSisa' => $request->jumlah,
+            'jumlahKeluar' => 0
+        ];
+        DB::table('collections')->insert($collection);
         return view('koleksi.daftarKoleksi');
     }
 
@@ -96,6 +98,8 @@ class CollectionController extends Controller
     public function update(Request $request, Collection $collection)
     {
         //
+
+
     }
 
     /**
@@ -121,17 +125,17 @@ class CollectionController extends Controller
                 WHEN jenisKoleksi="3" THEN "Cakram Digital"
                 END) as jenis
             '),
-            'jumlahAwal as jumlahawal',
-            'jumlahSisa as jumlahsisa',
-            'jumlahKeluar as jumlahkeluar',
+            'jumlahAwal as jumlahAwal',
+            'jumlahSisa as jumlahSisa',
+            'jumlahKeluar as jumlahKeluar',
         )
-        ->orderBy('id','asc')
+        ->orderBy('namaKoleksi','asc')
         ->get();
 
         return DataTables::of($collections)
         ->addColumn('action', function ($collection){
             $html = '
-            <a class="btn btn-info" href="/userView/'.$collection->id.'">Show</a>
+            <a class="btn btn-info" href="/koleksiView/'.$collection->id.'">Show</a>
             ';
             return $html;
         })

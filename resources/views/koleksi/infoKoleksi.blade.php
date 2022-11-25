@@ -11,15 +11,17 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                   
                 <div class="p-6 bg-white border-b border-gray-200">
-                <form method="POST" action="{{ route('koleksiStore') }}">
+
+                <form method="POST" action="{{ route('koleksiUpdate') }}">
             @csrf
+
             <!-- ID -->
             <div>
                 <x-input-label for="id" :value="__('id Koleksi')" />
 
                 <x-text-input id="id" class="block mt-1 w-full" type="text" name="id" :value="{{$collection->id}}" readonly />
 
-                <x-input-error :messages="$errors->get('namaKoleksi')" class="mt-2" />
+                <x-input-error :messages="$errors->get('id')" class="mt-2" />
             </div>
 
             <!-- namaKoleksi -->
@@ -33,45 +35,45 @@
 
            
 
-<!-- jenis -->
-                    <div>
-                        <x-input-label for="jenis" :value="__('Jenis')" />
+            <!-- jenis -->
+            <div>
+                <x-input-label for="jenis" :value="__('Jenis')" />
         
-                        <select id="jenis" name="jenis" class="form-select" required>
-                              <option value="-1" @if (old('jenis', $collection->jenis) == -1) selected @endif> Pilih satu</option>
-                              <option value="1" @if (old('jenis', $collection->jenis) == 1) selected @endif> Buku</option>
-                              <option value="2" @if (old('jenis', $collection->jenis) == 2) selected @endif> Majalah</option>
-                              <option value="3" @if (old('jenis', $collection->jenis) == 3) selected @endif> Cakram Digital</option>
-                          </select>
+                <select id="jenis" name="jenis" class="form-select" required >
+                    <option value="-1" @if (old('jenis', $collection->jenis) == -1) selected @endif > Pilih satu</option>
+                    <option value="1" @if (old('jenis', $collection->jenis) == 1) selected @endif > Buku</option>
+                    <option value="2" @if (old('jenis', $collection->jenis) == 2) selected @endif > Majalah</option>
+                    <option value="3" @if (old('jenis', $collection->jenis) == 3) selected @endif >  Cakram Digital</option>
+                </select>
         
-                        <x-input-error :messages="$errors->get('jenis')" class="mt-2" />
-                    </div>
+                <x-input-error :messages="$errors->get('jenis')" class="mt-2" />
+            </div>
 
                      <!-- jumlah awal -->
             <div>
-                <x-input-label for="jumawal" :value="__('jumlah Awal')" />
+                <x-input-label for="jumlahAwal" :value="__('jumlah Awal')" />
 
-                <x-text-input id="jumawal" class="block mt-1 w-full" type="text" name="jumawal" :value="{{$collection->jumlahawal}}" required autofocus />
+                <x-text-input id="jumlahAwal" class="block mt-1 w-full" type="text" name="jumlahAwal" :value="{{$collection->jumlahAwal}}" readonly />
 
-                <x-input-error :messages="$errors->get('jumawal')" class="mt-2" />
+                <x-input-error :messages="$errors->get('jumlahAwal')" class="mt-2" />
             </div>
 
              <!-- jumlah sisa -->
              <div>
-                <x-input-label for="jumsisa" :value="__('Jumlah Sisa')" />
+                <x-input-label for="jumlahSisa" :value="__('Jumlah Sisa')" />
 
-                <x-text-input id="jumsisa" class="block mt-1 w-full" type="text" name="jumsisa" :value="{{$collection->jumlahsisa}}" required autofocus />
+                <x-text-input id="jumlahSisa" class="block mt-1 w-full" type="text" name="jumlahSisa" :value="{{$collection->jumlahSisa}}" />
 
-                <x-input-error :messages="$errors->get('jumsisa')" class="mt-2" />
+                <x-input-error :messages="$errors->get('jumlahSisa')" class="mt-2" />
             </div>
 
              <!-- jumlah keluar -->
              <div>
-                <x-input-label for="jumkel" :value="__('jumlah keluar')" />
+                <x-input-label for="jumlahKeluar" :value="__('jumlah keluar')" />
 
-                <x-text-input id="jumkel" class="block mt-1 w-full" type="text" name="jumkel" :value="{{$collection->jumlahkeluar}}" required autofocus />
+                <x-text-input id="jumlahKeluar" class="block mt-1 w-full" type="text" name="jumlahKeluar" :value="{{$collection->jumlahKeluar}}"/>
 
-                <x-input-error :messages="$errors->get('jumkel')" class="mt-2" />
+                <x-input-error :messages="$errors->get('jumlahKeluar')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
