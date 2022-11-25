@@ -11,7 +11,39 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="contrainer">
                         <div class="row form-inline">
-                        {{ $dataTable->table() }} 
+                     
+                        <div class="container mt-2">
+                <div class="row">
+                <div class="col-lg-12 margin-tb">
+                <div class="pull-left">
+                </div>
+                <div class="pull-right mb-2">
+                <a class="btn btn-success" href="{{ route('collections.create') }}"> Tambah</a>
+                </div>
+                </div>
+                </div>
+
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                <p>{{ $message }}</p>
+                </div>
+                @endif
+
+                <div class="card-body">
+                <table class="table table-bordered" id="datatable">
+                <thead>
+                <tr>
+                <th>Id</th>
+                <th>nama</th>
+                <th>judul</th>
+                <th>jenis</th>
+                <th>Action</th>
+                </tr>
+                </thead>
+                </table>
+                </div>
+                </div>
+
                         </div> 
                     </div>
                 </div>
@@ -31,7 +63,8 @@ serverSide: true,
 ajax: "{{ url('getAllCollections') }}",
 columns: [
 { data: 'id', name: 'id' },
-{ data: 'nama', name: 'nama' },
+{ data: 'judul', name: 'judul' },
+{ data: 'jenis', name: 'jenis' },   
 { data: 'jumlah', name: 'jumlah' },
 {data: 'action', name: 'action', orderable: false},
 ],

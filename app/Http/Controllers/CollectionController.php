@@ -119,15 +119,13 @@ class CollectionController extends Controller
             '),
             'jumlahKoleksi as jumlah'
         )
-        ->orderBy('namaKoleksi','asc')
+        ->orderBy('id','asc')
         ->get();
 
         return DataTables::of($collections)
         ->addColumn('action', function ($collection){
             $html = '
-            <button data-rowid="" class="btn btn-xs btn-light" data-toggle="tooltip" data-placement="top"
-                data-container="body" title="Edit Koleksi" onclick="infoKoleksi('."'".$collection->id."'".')">
-                <i class="fa fa-edit"></i>
+            <a class="btn btn-info" href="/userView/'.$collection->id.'">Show</a>
             ';
             return $html;
         })
