@@ -12,7 +12,9 @@ class Collection extends Model
     protected $fillable = [
         'namaKoleksi',
         'jenisKoleksi',
-        'jumlahKoleksi',
+        'jumlahAwal',
+        'jumlahSisa',
+        'jumlahKeluar',
     ];
  
 }

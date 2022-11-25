@@ -34,9 +34,11 @@
                 <thead>
                 <tr>
                 <th>Id</th>
-                <th>nama</th>
                 <th>judul</th>
                 <th>jenis</th>
+                <th>jumlah awal</th>
+                <th>jumlah sisa</th>
+                <th>jumlah keluar</th>
                 <th>Action</th>
                 </tr>
                 </thead>
@@ -65,7 +67,9 @@ columns: [
 { data: 'id', name: 'id' },
 { data: 'judul', name: 'judul' },
 { data: 'jenis', name: 'jenis' },   
-{ data: 'jumlah', name: 'jumlah' },
+{ data: 'jumlahawal', name: 'jumlahawal' },
+{ data: 'jumlahsisa', name: 'jumlahsisa' },
+{ data: 'jumlahkeluar', name: 'jumlahkeluar' },
 {data: 'action', name: 'action', orderable: false},
 ],
 order: [[0, 'desc']]

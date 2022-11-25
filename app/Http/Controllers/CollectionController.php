@@ -47,13 +47,17 @@ class CollectionController extends Controller
         $request->validate([
             'namaKoleksi' => ['required', 'string', 'max:255'],
             'jenisKoleksi' => ['required', 'Integer', 'max:255'],
-            'jumlahKoleksi' => ['required']
+            'jumlahAwal' => ['required'],
+            'jumlahSisa' => ['required'],
+            'jumlahKeluar' => ['required']
         ]);
 
         $collection = Collection::create([
             'namaKoleksi' => $request->namaKoleksi,
             'jenisKoleksi' => $request->jenisKoleksi,
-            'jumlahKoleksi' => $request->jumlahKoleksi,
+            'jumlahAwal' => $request->jumlahAwal,
+            'jumlahSisa' => $request->jumlahSisa,
+            'jumlahKeluar' => $request->jumlahKeluar,
         ]);
 
         return view('koleksi.daftarKoleksi');
@@ -68,7 +72,7 @@ class CollectionController extends Controller
     public function show(Collection $collection)
     {
         //
-        return view('koleksi.infoKoleksi');
+        return view('koleksi.infoKoleksi', compact('collection'));
     }
 
     /**
@@ -117,7 +121,9 @@ class CollectionController extends Controller
                 WHEN jenisKoleksi="3" THEN "Cakram Digital"
                 END) as jenis
             '),
-            'jumlahKoleksi as jumlah'
+            'jumlahAwal as jumlahawal',
+            'jumlahSisa as jumlahsisa',
+            'jumlahKeluar as jumlahkeluar',
         )
         ->orderBy('id','asc')
         ->get();
