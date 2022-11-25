@@ -4,6 +4,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Ramsey\Collection\CollectionInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('user',[UserController::class,'index'])->name('users.index');
-Route::get('userRegistration',[UserController::class,'create']);
+Route::get('userRegistration',[UserController::class,'create'])->name('users.create');
 Route::post('userStore',[UserController::class,'store'])->name('userStore');
 Route::get('userView/{user}',[UserController::class,'show'])->name('userView');
 Route::get('getAllCollections',[CollectionController::class,''])
@@ -38,6 +39,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('getAllUsers', [UserController::class, 'getAllUsers']);
+Route::get('getAllCollections', [CollectionController::class, 'getAllCollections']);
 
 Auth::routes();
 

@@ -18,10 +18,10 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CollectionsDataTable $dataTable)
+    public function index()
     {
         //
-        return $dataTable->render('koleksi.daftarKoleksi');
+        return view('koleksi.daftarKoleksi');
     }
     /**
      * Show the form for creating a new resource.

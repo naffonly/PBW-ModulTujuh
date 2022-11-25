@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\DataTables\UsersDataTable;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+
 class UserController extends Controller
 {
     /**
@@ -14,10 +17,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsersDataTable $dataTable)
+    public function index()
     {
         //
-        return $dataTable->render('user.daftarPengguna');
+        return view('user.daftarPengguna');
       
     }
 
@@ -113,5 +116,27 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getAllUsers()
+    {
+        $users = DB::table('users')
+            ->select(
+                'id as id',
+                'fullname as fullname',
+                'address as alamat',
+                'birthdate as birthdate',
+                'phoneNumber as phoneNumber')
+            ->orderBy('id', 'asc')
+            ->get();
+
+            return DataTables::of($users)
+            ->addColumn('action', function($user) {
+                $html = '
+                <a class="btn btn-info" href="/userView/'.$user->id.'">Show</a>
+                ';
+                return $html;
+            })
+            ->make(true);
     }
 }

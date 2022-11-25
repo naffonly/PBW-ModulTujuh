@@ -18,7 +18,25 @@
             </div>
         </div>
     </div>
-    @push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
+    <script type="text/javascript">
+$(document).ready( function () {
+$.ajaxSetup({
+headers: {
+'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+$('#datatable').DataTable({
+processing: true,
+serverSide: true,
+ajax: "{{ url('getAllCollections') }}",
+columns: [
+{ data: 'id', name: 'id' },
+{ data: 'nama', name: 'nama' },
+{ data: 'jumlah', name: 'jumlah' },
+{data: 'action', name: 'action', orderable: false},
+],
+order: [[0, 'desc']]
+});
+});
+</script>
 </x-app-layout>
