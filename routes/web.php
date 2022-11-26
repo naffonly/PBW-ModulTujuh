@@ -26,8 +26,6 @@ Route::get('userRegistration',[UserController::class,'create'])->name('users.cre
 Route::post('userStore',[UserController::class,'store'])->name('userStore');
 Route::get('userView/{user}',[UserController::class,'show'])->name('userView');
 Route::post('userUpdate',[UserController::class,'update'])->name('user.update');
-Route::get('getAllCollections',[CollectionController::class,''])
-        ->middleware(['auth','verified']);
 
 
 Route::get('koleksi',[CollectionController::class,'index'])->name('collections.index');
@@ -42,9 +40,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('getAllUsers', [UserController::class, 'getAllUsers']);
-Route::get('getAllCollections', [CollectionController::class, 'getAllCollections']);
-
+Route::get('getAllUsers', [UserController::class, 'getAllUsers'])
+        ->middleware(['auth','verified']);
+Route::get('getAllCollections', [CollectionController::class, 'getAllCollections'])
+        ->middleware(['auth','verified']);
 Auth::routes();
 
 require __DIR__.'/auth.php';

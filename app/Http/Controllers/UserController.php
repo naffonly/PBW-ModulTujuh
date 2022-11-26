@@ -107,23 +107,23 @@ class UserController extends Controller
         //
         $request->validate([
             
-            'username' => [ 'required','string', 'max:255', 'unique:users' , 'gt:0'],
-            'fullname' => [ 'required','string', 'max:255', 'gt:0'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class, 'gt:0'],
-            'address'=> ['required','string', 'max:255' , 'gt:0'],
-            'phoneNumber'=> ['required','integer', 'gt:0'],
-            'birthdate'=> ['required','date','before:today', 'gt:0']
+            'username'      => ['required','gt:0'],
+            'fullname'      => ['required', 'gt:0'],
+            'email'         => ['required', 'gt:0'],
+            'address'       => ['required', 'gt:0'],
+            'phoneNumber'   => ['required', 'gt:0'],
+            'birthdate'     => ['required','before:today', 'gt:0'],
         ]);
         
-        $affected = DB::table('users')
+        $affected = DB::table('users')  
         ->where('id', $request->id)
         ->update([
-            'username' => $request->username,
-            'fullname' => $request->fullname,
-            'email' => $request->email,
-            'address' => $request->address,
-            'phoneNumber' => $request->phoneNumber,
-            'birthdate' => $request->birthdate,
+            'username'      => $request->username,
+            'fullname'      => $request->fullname,
+            'email'         => $request->email,
+            'address'       => $request->address,
+            'phoneNumber'   => $request->phoneNumber,
+            'birthdate'     => $request->birthdate,
         ]);
 
         return view('user.daftarPengguna');
