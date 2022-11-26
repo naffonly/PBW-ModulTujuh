@@ -108,12 +108,12 @@ class UserController extends Controller
     {
         //
         $request->validate([
-            'username'      => ['required','gt:0'],
-            'fullname'      => ['required', 'gt:0'],
-            'email'         => ['required', 'gt:0'],
-            'address'       => ['required', 'gt:0'],
-            'phoneNumber'   => ['required', 'gt:0'],
-            'birthdate'     => ['required','before:today', 'gt:0'],
+            'username'      => ['required'],
+            'fullname'      => ['required'],
+            'email'         => ['required'],
+            'address'       => ['required'],
+            'phoneNumber'   => ['required'],
+            'birthdate'     => ['required', 'before:today']
         ]);
         
         $affected = DB::table('users')  

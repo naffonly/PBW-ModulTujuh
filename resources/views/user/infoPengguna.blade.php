@@ -14,32 +14,31 @@
                 <form method="POST" action="{{ route('user.update') }}">
                     @csrf
                         <div class="mb-3">
-                            <label for="id" class="form-label">id</label>
-                            <input  id="id" name="id" type="text" class="form-control"  autocomplete="off" value="{{$user->id}}" readonly>
+                            <input  id="id" name="id" type="hidden" class="form-control"  autocomplete="off" value="{{$user->id}}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">username</label>
-                            <input  id="username" name="username" type="text" class="form-control" autocomplete="off" value="{{$user->username}}" >
+                            <input  id="username" name="username" type="text" class="form-control" autocomplete="off" value="{{$user->username}}" require>
                         </div>
                         <div class="mb-3">
                             <label for="fullname" class="form-label">fullname</label>
-                            <input  id="fullname" name="fullname" type="text" class="form-control" autocomplete="off" value="{{$user->fullname}}" >
+                            <input  id="fullname" name="fullname" type="text" class="form-control" autocomplete="off" value="{{$user->fullname}}" require>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">email</label>
-                            <input  id="email" name="email" type="email" class="form-control" autocomplete="off" value="{{$user->email}}" >
+                            <input  id="email" name="email" type="email" class="form-control" autocomplete="off" value="{{$user->email}}" require>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">address</label>
-                            <input  id="address" name="address" type="text" class="form-control" autocomplete="off" value="{{$user->address}}" >
+                            <input  id="address" name="address" type="text" class="form-control" autocomplete="off" value="{{$user->address}}" require>
                         </div>
                         <div class="mb-3">
                             <label for="phoneNumber" class="form-label">phoneNumber</label>
-                            <input  id="phoneNumber" name="phoneNumber" type="text" class="form-control" autocomplete="off" value="{{$user->phoneNumber}}" >
+                            <input  id="phoneNumber" name="phoneNumber" type="text" class="form-control" autocomplete="off" value="{{$user->phoneNumber}}" require >
                         </div>
                         <div class="mb-3">
                             <label for="birthdate" class="form-label">phoneNumber</label>
-                            <input  id="birthdate" name="birthdate" type="date" class="form-control" autocomplete="off" value="{{$user->birthdate}}" >
+                            <input  id="birthdate" name="birthdate" type="date" class="form-control" autocomplete="off" value="{{$user->birthdate}}" require>
                         </div>
                         <button type="submit" class="btn btn-info">Reset</button>
                         <button type="submit" class="btn btn-info">Submit</button>
