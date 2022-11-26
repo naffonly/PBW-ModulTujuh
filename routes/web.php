@@ -25,6 +25,7 @@ Route::get('user',[UserController::class,'index'])->name('users.index');
 Route::get('userRegistration',[UserController::class,'create'])->name('users.create');
 Route::post('userStore',[UserController::class,'store'])->name('userStore');
 Route::get('userView/{user}',[UserController::class,'show'])->name('userView');
+Route::post('userUpdate',[UserController::class,'update'])->name('user.update');
 Route::get('getAllCollections',[CollectionController::class,''])
         ->middleware(['auth','verified']);
 
@@ -33,7 +34,7 @@ Route::get('koleksi',[CollectionController::class,'index'])->name('collections.i
 Route::get('koleksiTambah',[CollectionController::class,'create'])->name('collections.create');
 Route::post('koleksiStore',[CollectionController::class,'store'])->name('koleksiStore');
 Route::get('koleksiView/{collection}',[CollectionController::class,'show'])->name('koleksiView');
-Route::post('koleksiUpdate',[CollectionController::class,'update'])->name('koleksiUpdate');
+Route::post('koleksiUpdate',[CollectionController::class,'update'])->name('collecion.update');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

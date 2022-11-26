@@ -80,7 +80,7 @@ class UserController extends Controller
      public function show(User $user)
     {
         //
-        return view('user.infoPengguna');
+        return view('user.infoPengguna',compact('user'));
     }
 
     /**
@@ -102,9 +102,31 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, User $user)
+    public function update(Request $request )
     {
         //
+        $request->validate([
+            
+            'username' => [ 'required','string', 'max:255', 'unique:users' , 'gt:0'],
+            'fullname' => [ 'required','string', 'max:255', 'gt:0'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class, 'gt:0'],
+            'address'=> ['required','string', 'max:255' , 'gt:0'],
+            'phoneNumber'=> ['required','integer', 'gt:0'],
+            'birthdate'=> ['required','date','before:today', 'gt:0']
+        ]);
+        
+        $affected = DB::table('users')
+        ->where('id', $request->id)
+        ->update([
+            'username' => $request->username,
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phoneNumber' => $request->phoneNumber,
+            'birthdate' => $request->birthdate,
+        ]);
+
+        return view('user.daftarPengguna');
     }
 
     /**

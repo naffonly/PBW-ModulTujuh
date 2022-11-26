@@ -10,84 +10,40 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                   
-                <div class="p-6 bg-white border-b border-gray-200">
-
-                <form method="POST" action="{{ route('koleksiUpdate') }}">
-            @csrf
-
-            <!-- ID -->
-            <div>
-                <x-input-label for="id" :value="__('id Koleksi')" />
-
-                <x-text-input id="id" class="block mt-1 w-full" type="text" name="id" :value="{{$collection->id}}" readonly />
-
-                <x-input-error :messages="$errors->get('id')" class="mt-2" />
-            </div>
-
-            <!-- namaKoleksi -->
-            <div>
-                <x-input-label for="judul" :value="__('Nama Koleksi')" />
-
-                <x-text-input id="judul" class="block mt-1 w-full" type="text" name="judul" :value="{{$collection->judul}}" readonly />
-
-                <x-input-error :messages="$errors->get('judul')" class="mt-2" />
-            </div>
-
-           
-
-            <!-- jenis -->
-            <div>
-                <x-input-label for="jenis" :value="__('Jenis')" />
-        
-                <select id="jenis" name="jenis" class="form-select" required >
-                    <option value="-1" @if (old('jenis', $collection->jenis) == -1) selected @endif > Pilih satu</option>
-                    <option value="1" @if (old('jenis', $collection->jenis) == 1) selected @endif > Buku</option>
-                    <option value="2" @if (old('jenis', $collection->jenis) == 2) selected @endif > Majalah</option>
-                    <option value="3" @if (old('jenis', $collection->jenis) == 3) selected @endif >  Cakram Digital</option>
-                </select>
-        
-                <x-input-error :messages="$errors->get('jenis')" class="mt-2" />
-            </div>
-
-                     <!-- jumlah awal -->
-            <div>
-                <x-input-label for="jumlahAwal" :value="__('jumlah Awal')" />
-
-                <x-text-input id="jumlahAwal" class="block mt-1 w-full" type="text" name="jumlahAwal" :value="{{$collection->jumlahAwal}}" readonly />
-
-                <x-input-error :messages="$errors->get('jumlahAwal')" class="mt-2" />
-            </div>
-
-             <!-- jumlah sisa -->
-             <div>
-                <x-input-label for="jumlahSisa" :value="__('Jumlah Sisa')" />
-
-                <x-text-input id="jumlahSisa" class="block mt-1 w-full" type="text" name="jumlahSisa" :value="{{$collection->jumlahSisa}}" />
-
-                <x-input-error :messages="$errors->get('jumlahSisa')" class="mt-2" />
-            </div>
-
-             <!-- jumlah keluar -->
-             <div>
-                <x-input-label for="jumlahKeluar" :value="__('jumlah keluar')" />
-
-                <x-text-input id="jumlahKeluar" class="block mt-1 w-full" type="text" name="jumlahKeluar" :value="{{$collection->jumlahKeluar}}"/>
-
-                <x-input-error :messages="$errors->get('jumlahKeluar')" class="mt-2" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" >
-                    {{ __('Reset') }}
-                </a>
-
-                <x-primary-button class="ml-4">
-                    {{ __('Submit') }}
-                </x-primary-button>
-            </div>
-        </form>
-                </div>
-
+                
+                    <form method="POST" action="{{ route('collecion.update') }}">
+                    @csrf
+                        <div class="mb-3">
+                            <label for="id" class="form-label">id</label>
+                            <input  id="id" name="id" type="text" class="form-control"  autocomplete="off" value="{{$collection->id}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Judul" class="form-label">Judul</label>
+                            <input  id="judul" name="judul" type="text" class="form-control" autocomplete="off" value="{{$collection->namaKoleksi}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                        <label for="jenis" class="form-label">Jenis</label>
+                            <select id="jenis" name="jenis" class="form-select" required>
+                              <option value="-1" @if (old('jenis', $collection->jenis) == -1) selected @endif>Pilih satu</option>
+                              <option value="1" @if (old('jenis', $collection->jenis) == 1) selected @endif>Buku</option>
+                              <option value="2" @if (old('jenis', $collection->jenis) == 2) selected @endif>Majalah</option>
+                              <option value="3" @if (old('jenis', $collection->jenis) == 3) selected @endif>Cakram Digital</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jumlahAwal" class="form-label">Jumalah Awal</label>
+                            <input  id="jumlahAwal" name="jumlahAwal" type="text" class="form-control" autocomplete="off" value="{{$collection->jumlahAwal}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jumlahSisa" class="form-label">Jumalah Sisa</label>
+                            <input  id="jumlahSisa" name="jumlahSisa" type="text" class="form-control" autocomplete="off" value="{{$collection->jumlahSisa}}" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="jumlahKeluar" class="form-label">Jumalah Keluar</label>
+                            <input  id="jumlahKeluar" name="jumlahKeluar" type="text" class="form-control" autocomplete="off" value="{{$collection->jumlahKeluar}}" >
+                        </div>
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </form>
 
                 </div>
             </div>

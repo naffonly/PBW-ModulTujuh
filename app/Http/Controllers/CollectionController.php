@@ -47,7 +47,9 @@ class CollectionController extends Controller
         $request->validate([
             'namaKoleksi' => ['required', 'string', 'max:255', 'unique:collections'],
             'jenisKoleksi' => ['required', 'gt:0'],
-            'jumlah' => ['required', 'gt:0'],
+            'jumlahAwal' => ['required', 'gt:0'],
+            'jumlahSisa' => ['required', 'gt:0'],
+            'jumlahKeluar' => ['required', 'gt:0'],
         ],
         [
             'namaKoleksi.unique' => 'Nama koleksi tersebut ada'
@@ -57,8 +59,8 @@ class CollectionController extends Controller
         $collection = [
             'namaKoleksi' => $request->namaKoleksi,
             'jenisKoleksi' => $request->jenisKoleksi,
-            'jumlahAwal' => $request->jumlah,
-            'jumlahSisa' => $request->jumlah,
+            'jumlahAwal' => $request->jumlahAwal,
+            'jumlahSisa' => $request->jumlahSisa,
             'jumlahKeluar' => 0
         ];
         DB::table('collections')->insert($collection);
@@ -76,7 +78,7 @@ class CollectionController extends Controller
         //
         return view('koleksi.infoKoleksi', compact('collection'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -95,11 +97,28 @@ class CollectionController extends Controller
      * @param  \App\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Collection $collection)
+    public function update(Request $request)
+
     {
         //
 
+        $request->validate([
+            'jenis'         => ['required', 'gt:0'],
+            'jumlahAwal'    => ['required', 'gt:0'],
+            'jumlahSisa'    => ['required', 'gt:0'],
+            'jumlahKeluar'  => ['required', 'gt:0'],
+        ]);
+        
+        $affected = DB::table('collections')
+        ->where('id', $request->id)
+        ->update([
+            'jenisKoleksi' => $request->jenis,
+            'jumlahAwal' => $request->jumlahAwal,
+            'jumlahSisa' => $request->jumlahSisa,
+            'jumlahKeluar' => $request->jumlahKeluar,
+        ]);
 
+        return view('koleksi.daftarKoleksi');
     }
 
     /**
