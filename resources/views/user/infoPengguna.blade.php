@@ -30,17 +30,18 @@
                             <input  id="email" name="email" type="email" class="form-control" autocomplete="off" value="{{$user->email}}" >
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Jumalah Sisa</label>
+                            <label for="address" class="form-label">address</label>
                             <input  id="address" name="address" type="text" class="form-control" autocomplete="off" value="{{$user->address}}" >
                         </div>
                         <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Jumalah Keluar</label>
+                            <label for="phoneNumber" class="form-label">phoneNumber</label>
                             <input  id="phoneNumber" name="phoneNumber" type="text" class="form-control" autocomplete="off" value="{{$user->phoneNumber}}" >
                         </div>
                         <div class="mb-3">
-                            <label for="birthdate" class="form-label">Jumalah Keluar</label>
+                            <label for="birthdate" class="form-label">phoneNumber</label>
                             <input  id="birthdate" name="birthdate" type="date" class="form-control" autocomplete="off" value="{{$user->birthdate}}" >
                         </div>
+                        <button type="submit" class="btn btn-info">Reset</button>
                         <button type="submit" class="btn btn-info">Submit</button>
                     </form>
 

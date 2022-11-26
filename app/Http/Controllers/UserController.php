@@ -58,7 +58,7 @@ class UserController extends Controller
             'username.unique' => 'Username telah digunakan',
             'birthdate.before' => 'Tanggal lahir harus sebelum hari ini'
         ]);
-        $user = User::create([
+        $user =[
             'username' => $request->username,
             'fullname' => $request->fullname,
             'email' => $request->email,
@@ -66,7 +66,9 @@ class UserController extends Controller
             'address' => $request->address,
             'phoneNumber' => $request->phoneNumber,
             'birthdate' => $request->birthdate,
-        ]);
+        ];
+
+        DB::table('users')->insert($user);
         return view('user.daftarPengguna');
     }
 
@@ -106,7 +108,6 @@ class UserController extends Controller
     {
         //
         $request->validate([
-            
             'username'      => ['required','gt:0'],
             'fullname'      => ['required', 'gt:0'],
             'email'         => ['required', 'gt:0'],

@@ -42,6 +42,8 @@
                             <label for="jumlahKeluar" class="form-label">Jumalah Keluar</label>
                             <input  id="jumlahKeluar" name="jumlahKeluar" type="text" class="form-control" autocomplete="off" value="{{$collection->jumlahKeluar}}" >
                         </div>
+                        <button type="submit" class="btn btn-info">Reset</button>
+                        
                         <button type="submit" class="btn btn-info">Submit</button>
                     </form>
 
