@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('namaKoleksi',100);
             $table->tinyInteger('jenisKoleksi');
             $table->integer('jumlahKoleksi');
-            $table->date('create_at');
             $table->timestamps();
         });
     }
