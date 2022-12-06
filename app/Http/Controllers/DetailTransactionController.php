@@ -84,9 +84,26 @@ class DetailTransactionController extends Controller
         //
     }
 
-    public function detailTransactionKembalikan()
+    public function detailTransactionKembalikan($detailTransactionsId)
     {
-        return view('detailTransaction.detailTransactionKembalikan');
+        $detailTransaction = DB::table('detailtransactions as dt')
+        ->select(
+            't.id as id',
+            'dt.id as id',
+           'dt.tanggalKembali as tanggalKembali',
+           't.tanggalPinjam as tanggalPinjam',
+           'dt.status',
+           'u1.fullname as namaPeminjam',
+          'u2.fullname as namaPetugas',
+        'c.namaKoleksi as koleksi')
+        ->join('collecions as c','c.id','=','collectionId')
+        ->join('transactions as t','t.id','=','dt.transactionId')
+        ->join('users as u1','t.userIdPeminjam','=','u1.id')
+        ->join('users as u2' , 't.userIdPetugas','=','u2.id')
+        ->where('dt.id','=',$detailTransactionsId)->first();
+
+       
+        return view('detailTransaction.detailTransactionKembalikan',compact('detailtransactions'));
     }
     
     public function getAllDetailTransactions($transactionId)
@@ -103,11 +120,11 @@ class DetailTransactionController extends Controller
            WHEN dt.status="2" THEN "Kembali"
            WHEN dt.status="3" THEN "Hilang"
            END) as status
-       '),
+            '),
         'c.namaKoleksi as koleksi')
-        ->join('collecions as c','c.id','=','collectionId')
+        ->join('collections as c','c.id','=','dt.collectionId')
         ->join('transactions as t','t.id','=','dt.transactionId')
-        ->where('transaction','=',$transactionId)->get();
+        ->where('dt.transactionId','=',$transactionId)->get();
 
         return DataTables::of($detailTransactions)
         ->addColumn('action', function ($detailTransaction){

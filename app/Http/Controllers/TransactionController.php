@@ -173,7 +173,7 @@ class TransactionController extends Controller
         return DataTables::of($transactions)
         ->addColumn('action', function ($transaction){
             $html = '
-            <a class="btn btn-info" href="/koleksiView/'.$transaction->id.'">Show</a>
+            <a class="btn btn-info" href="/transaksiView/'.$transaction->id.'">Show</a>
             ';
             return $html;
         })

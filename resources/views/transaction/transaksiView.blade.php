@@ -10,15 +10,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                    
-                
-                <div class="container mt-2">
-                <div class="row">
-                <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                </div>
-              
-                </div>
-                </div>
 
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -26,15 +17,17 @@
                 </div>
                 @endif
                 
-                
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Peminjaman</label>
-                    <input type="text" class="form-control" value="{{$transactions->fullnamePeminjam}}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" readonly>
+                    <label >Peminjaman</label>
+                    <input type="text" class="form-control" name="peminjam"  autocomplete="off"
+                    value="{{$transactions->peminjam}}"  readonly>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Petugas</label>
-                    <input type="text" class="form-control" value="{{$transactions->fullnamePetugas}}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" readonly>
-                </div>
+                    <label>Petugas</label> 
+                    <input type="text" class="form-control" name="petugas" autocomplete="off"
+                    value="{{$transactions->petugas}}" readonly>
+                </div>  
+             
 
                 <div class="card-body">
                 <table class="table table-bordered" id="datatable">
@@ -42,9 +35,9 @@
                 <tr>
                 <th>Id</th>
                 <th>Koleksi</th>
-                <th>petugas</th>
                 <th>tanggal Pinjam</th>
                 <th>tanggal Kembali</th>
+                <th>status</th>
                 <th>Action</th>
                 </tr>
                 </thead>
@@ -65,7 +58,7 @@ headers: {
 });
 $('#datatable').DataTable({
 
-ajax: '{{ url("getAllDetailTransactions") }}'+ "/" + '{{ $transactions->id }}',
+ajax: "{{ url('getAllDetailTransactions') }}"+"/"+"{{$transactions->id}}",
 processing: true,
 serverSide: false,
 deferRender:true,
