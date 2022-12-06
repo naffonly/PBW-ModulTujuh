@@ -48,7 +48,7 @@ Route::get('transaksiTambah',[TransactionController::class,'create'])->name('tra
 Route::post('transaksiStore',[TransactionController::class,'store'])->name('transaksiStore');
 Route::get('transaksiView/{transaction}',[TransactionController::class,'show']);
 
-Route::get('detailTransactionKembalikan/{id}',[DetailTransactionController::class,'detailTransactionKembalikan'])->name('dTransactionView');
+Route::get('detailTransactionKembalikan/{detailTransactionsId}',[DetailTransactionController::class,'detailTransactionKembalikan']);
 Route::post('detailTransactionUpdate',[DetailTransactionController::class,'update'])->name('dTransaction.update');
 
 

@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                   
                 
-                <form method="POST" action="{{ route('transaksiStore') }}">
+                <form method="POST" action="{{ route('dTransaction.update') }}">
                  @csrf
 
 
@@ -42,8 +42,8 @@
 
                 <!-- Koleksi 3 -->
                 <div class="form-group mb-2">
-                 <label for="kolesi1">Koleksi 3</label>
-                <select class="form-control" name="kolekssi3">
+                 <label for="kolesi1">Status</label>
+                <select class="form-control" name="status">
                     <option>-- Pilih Dahulu ---</option>
                     <option value="1" @if(old('status',$detailTransaction->status)== 1) seleted @endif>Pinjam</option>
                     <option value="2" @if(old('status',$detailTransaction->status)== 2) seleted @endif>Kembali</option>
@@ -57,7 +57,7 @@
                 </a>
 
                 <x-primary-button class="ml-4">
-                    {{ __('Submit') }}
+                    {{ __('Update') }}
                 </x-primary-button>
             </div>
                 </form>

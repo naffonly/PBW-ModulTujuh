@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -68,9 +70,27 @@ class DetailTransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        if ($request->status == 1) {
+            # code...
+        } else {
+        $affected= DB::table('detailTransactions')
+        ->where('id',$request->idDetailTransaksi)
+        ->update([
+            'status' => $request->status,
+            'tanggalKembali' => Carbon::now()->toDateString()
+        ]);
+        if ($request->status == 2) {
+            DB::table('collections')->increment('jumlahSisa');
+            DB::table('collections')->decrement('jumlahKeluar');
+        }else{
+            DB::table('collections')->increment('jumlahSisa');
+            }
+        }
+        $transaction = transaction::where('id','=',$request->idTransaksi)->first();
+        return redirect('transaksiView/'.$request->idTransaksi)->with('transaction',$transaction);
     }
 
     /**
@@ -88,7 +108,7 @@ class DetailTransactionController extends Controller
     {
         $detailTransaction = DB::table('detailtransactions as dt')
         ->select(
-            't.id as id',
+            't.id as idTransaksi',
             'dt.id as id',
            'dt.tanggalKembali as tanggalKembali',
            't.tanggalPinjam as tanggalPinjam',
@@ -96,14 +116,14 @@ class DetailTransactionController extends Controller
            'u1.fullname as namaPeminjam',
           'u2.fullname as namaPetugas',
         'c.namaKoleksi as koleksi')
-        ->join('collecions as c','c.id','=','collectionId')
+        ->join('collections as c','c.id','=','collectionId')
         ->join('transactions as t','t.id','=','dt.transactionId')
         ->join('users as u1','t.userIdPeminjam','=','u1.id')
         ->join('users as u2' , 't.userIdPetugas','=','u2.id')
         ->where('dt.id','=',$detailTransactionsId)->first();
 
        
-        return view('detailTransaction.detailTransactionKembalikan',compact('detailtransactions'));
+        return view('detailTransaction.detailTransactionKembalikan',compact('detailTransaction'));
     }
     
     public function getAllDetailTransactions($transactionId)
