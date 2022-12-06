@@ -45,16 +45,16 @@ Route::post('koleksiUpdate',[CollectionController::class,'update'])->name('colle
 
 Route::get('transaksi',[TransactionController::class,'index'])->name('transaksi.index');
 Route::get('transaksiTambah',[TransactionController::class,'create'])->name('transaksi.create');
-Route::get('transaksiStore',[TransactionController::class,'store'])->name('transaksiStore');
-Route::post('transaksiShow',[TransactionController::class,'show'])->name('transaksiShow');
+Route::post('transaksiStore',[TransactionController::class,'store'])->name('transaksiStore');
+Route::get('transaksiShow',[TransactionController::class,'show'])->name('transaksiShow');
 
 Route::get('detailTransactionKembalikan/{id}',[DetailTransactionController::class,'detailTransactionKembalikan'])->name('dTransactionView');
 Route::post('detailTransactionUpdate',[DetailTransactionController::class,'update'])->name('dTransaction.update');
 
 
-Route::get('getAllTransactions', [UserController::class, 'getAllTransactions'])
+Route::get('getAllTransactions', [TransactionController::class, 'getAllTransactions'])
         ->middleware(['auth','verified']);
-Route::get('getAllDetailTransactions/{id}', [CollectionController::class, 'getAllDetailTransactions'])
+Route::get('getAllDetailTransactions/{id}', [DetailTransactionController::class, 'getAllDetailTransactions'])
         ->middleware(['auth','verified']);
 
 Route::get('getAllUsers', [UserController::class, 'getAllUsers'])

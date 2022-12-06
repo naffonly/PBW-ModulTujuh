@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class DetailTransactionController extends Controller
 {
@@ -87,8 +89,38 @@ class DetailTransactionController extends Controller
         return view('detailTransaction.detailTransactionKembalikan');
     }
     
-    public function getAllDetailTransactions()
+    public function getAllDetailTransactions($transactionId)
     {
-        # code...
+        $detailTransactions = DB::table('detailtransactions as dt')
+        ->select(
+            'dt.id as id',
+           'dt.tanggalKembali as tanggalKembali',
+           't.tanggalPinjam as tanggalPinjam',
+           'dt.status as statusType',
+           DB::raw('
+           (CASE
+           WHEN dt.status="1" THEN "Pinjam"
+           WHEN dt.status="2" THEN "Kembali"
+           WHEN dt.status="3" THEN "Hilang"
+           END) as status
+       '),
+        'c.namaKoleksi as koleksi')
+        ->join('collecions as c','c.id','=','collectionId')
+        ->join('transactions as t','t.id','=','dt.transactionId')
+        ->where('transaction','=',$transactionId)->get();
+
+        return DataTables::of($detailTransactions)
+        ->addColumn('action', function ($detailTransaction){
+            $html = '';
+            if ($detailTransaction->statusType == "1") {
+               $html = '  
+               <a class="btn btn-info" href="/detailTransactionKembalikan/'.$detailTransaction->id.'">Show</a>
+               ';
+            }
+          
+            return $html;
+        })
+            ->make(true);
     }
+   
 }

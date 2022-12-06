@@ -17,7 +17,7 @@
                 <div class="pull-left">
                 </div>
                 <div class="pull-right mb-2">
-                <a class="btn btn-success" href="{{ route('collections.create') }}"> Tambah</a>
+                <a class="btn btn-success" href="{{ route('transaksi.create') }}"> Tambah</a>
                 </div>
                 </div>
                 </div>
@@ -33,11 +33,10 @@
                 <thead>
                 <tr>
                 <th>Id</th>
-                <th>judul</th>
-                <th>jenis</th>
-                <th>jumlah awal</th>
-                <th>jumlah sisa</th>
-                <th>jumlah keluar</th>
+                <th>peminjam</th>
+                <th>petugas</th>
+                <th>tanggalPinjam</th>
+                <th>tanggalSelesai</th>
                 <th>Action</th>
                 </tr>
                 </thead>
@@ -60,14 +59,13 @@ headers: {
 $('#datatable').DataTable({
 processing: true,
 serverSide: true,
-ajax: "{{ url('getAllCollections') }}",
+ajax: "{{ url('getAllTransactions') }}",
 columns: [
 { data: 'id', name: 'id' },
-{ data: 'judul', name: 'judul' },
-{ data: 'jenis', name: 'jenis' },   
-{ data: 'jumlahAwal', name: 'jumlahAwal' },
-{ data: 'jumlahSisa', name: 'jumlahSisa' },
-{ data: 'jumlahKeluar', name: 'jumlahKeluar' },
+{ data: 'peminjam', name: 'peminjam' },
+{ data: 'petugas', name: 'petugas' },   
+{ data: 'tanggalPinjam', name: 'tanggalPinjam' },
+{ data: 'tanggalSelesai', name: 'tanggalSelesai' },
 {data: 'action', name: 'action', orderable: false},
 ],
 order: [[0, 'desc']]

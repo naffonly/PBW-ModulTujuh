@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
+use App\Models\detailtransaction;
+use App\Models\transaction;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransactionController extends Controller
 {
@@ -25,7 +32,9 @@ class TransactionController extends Controller
     public function create()
     {
         //
-        return view('transaction.transaksiTambah');
+        $users = User::get();
+        $collections = Collection::where('jumlahSisa','>',0)->get();
+        return view('transaction.transaksiTambah',compact('collections','users'));
     }
 
     /**
@@ -37,7 +46,54 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
-        return view('transaction.daftarTransaksi');
+        $request->validate([
+            'idPeminjam' => 'required|integer|gt:0',
+            'koleksi1' => 'required|integer|gt:0'
+        ],[
+            'idPeminjam.gt' => 'pilih salah satu',
+            'koleksi1.gt' => 'Pilih jenis Item'
+        ]);
+
+
+        $transaction = new transaction;
+        $transaction->userIdPeminjam = $request->idPeminjam;
+        $transaction->userIdPetugas = auth()->user()->id;
+        $transaction->tanggalPinjam = Carbon::now()->toDateString();
+        $transaction->save();
+
+        $lastTransactionStrored = $transaction->id;
+
+        $detailTransaksi1 = new detailtransaction;
+        $detailTransaksi1->transactionId = $lastTransactionStrored;
+        $detailTransaksi1->collectionId = $request->koleksi1;
+        $detailTransaksi1->status = 1;
+        $detailTransaksi1->save();
+        DB::table('collections')->where('id',$request->koleksi1)->decrement('jumlahSisa');
+        DB::table('collections')->where('id',$request->koleksi1)->increment('jumlahKeluar');
+
+        if ($request->koleksi2 > 0) {
+            $detailTransaksi2 = new detailtransaction;
+            $detailTransaksi2->transactionId = $lastTransactionStrored;
+            $detailTransaksi2->collectionId = $request->koleksi2;
+            $detailTransaksi2->status = 1;
+            $detailTransaksi2->save();
+            DB::table('collections')->where('id',$request->koleksi2)->decrement('jumlahSisa');
+            DB::table('collections')->where('id',$request->koleksi2)->increment('jumlahKeluar');
+    
+        }
+
+        if ($request->koleksi3 > 0) {
+            $detailTransaksi3 = new detailtransaction;
+            $detailTransaksi3->transactionId = $lastTransactionStrored;
+            $detailTransaksi3->collectionId = $request->koleksi3;
+            $detailTransaksi3->status = 1;
+            $detailTransaksi3->save();
+            DB::table('collections')->where('id',$request->koleksi3)->decrement('jumlahSisa');
+            DB::table('collections')->where('id',$request->koleksi3)->increment('jumlahKeluar');
+    
+        }
+
+        return redirect()->route('transaksi.index')->with('status','Peminjaman Berhasil');
     }
 
     /**
@@ -46,10 +102,23 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(transaction $transaction)
     {
         //
-        return view('transaction.transaksiView');
+        $transactions = DB::table('transactions')
+        ->select(
+            'transactions.id as id',
+            'u1.fullname as peminjam',
+            'u2.fullname as petugas',
+            'tanggalPinjam as tanggalPinjam',
+            'tanggalSelesai as tanggalSelesai',
+        )
+        ->join('users as u1','userIdPeminjam','=','u1.id')
+        ->join('users as u2','userIdPetugas','=','u2.id')
+        ->where('transactions.id','=' ,$transaction->id)
+        ->orderBy('tanggalPinjam','asc')
+        ->first();
+        return view('transaction.transaksiView', compact('transactions'));
     }
 
     /**
@@ -88,6 +157,26 @@ class TransactionController extends Controller
 
     public function getAllTransactions()
     {
-        # code...
+        $transactions = DB::table('transactions')
+        ->select(
+            'transactions.id as id',
+            'u1.fullname as peminjam',
+            'u2.fullname as petugas',
+            'tanggalPinjam as tanggalPinjam',
+            'tanggalSelesai as tanggalSelesai',
+        )
+        ->join('users as u1','userIdPeminjam','=','u1.id')
+        ->join('users as u2','userIdPetugas','=','u2.id')
+        ->orderBy('tanggalPinjam','asc')
+        ->get();
+
+        return DataTables::of($transactions)
+        ->addColumn('action', function ($transaction){
+            $html = '
+            <a class="btn btn-info" href="/koleksiView/'.$transaction->id.'">Show</a>
+            ';
+            return $html;
+        })
+            ->make(true);
     }
 }
