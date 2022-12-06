@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaKoleksi',100);
-            $table->tinyInteger('jenisKoleksi');
-            $table->integer('jumlahKoleksi');
+        Schema::table('collections', function (Blueprint $table) {
+            //
+
+            $table->integer('jumlahSisa');
+            $table->integer('jumlahKeluar');
             
-            $table->timestamps();
+            $table->renameColumn('jumlahKoleksi','jumlahAwal');
         });
     }
-  
+
     /**
      * Reverse the migrations.
      *
@@ -30,6 +30,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collection');
+        Schema::table('collections', function (Blueprint $table) {
+            //
+        });
     }
 };
