@@ -48,8 +48,6 @@ class CollectionController extends Controller
             'namaKoleksi' => ['required', 'string', 'max:255', 'unique:collections'],
             'jenisKoleksi' => ['required', 'gt:0'],
             'jumlahAwal' => ['required', 'gt:0'],
-            'jumlahSisa' => ['required', 'gt:0'],
-            'jumlahKeluar' => ['required', 'gt:0'],
         ],
         [
             'namaKoleksi.unique' => 'Nama koleksi tersebut ada'
@@ -60,8 +58,8 @@ class CollectionController extends Controller
             'namaKoleksi' => $request->namaKoleksi,
             'jenisKoleksi' => $request->jenisKoleksi,
             'jumlahAwal' => $request->jumlahAwal,
-            'jumlahSisa' => $request->jumlahSisa,
-            'jumlahKeluar' => 0
+            'jumlahSisa' => $request->jumlahAwal ,
+            'jumlahKeluar' => 0,
         ];
         DB::table('collections')->insert($collection);
         return view('koleksi.daftarKoleksi');
@@ -101,9 +99,9 @@ class CollectionController extends Controller
 
     {
         //
-
+// dd($request);
         $request->validate([
-            'jenis'         => ['required', 'gt:0'],
+            'jenisKoleksi'         => ['required', 'gt:0'],
             'jumlahAwal'    => ['required', 'gt:0'],
             'jumlahSisa'    => ['required', 'gt:0'],
             'jumlahKeluar'  => ['required', 'gt:0'],
@@ -112,7 +110,7 @@ class CollectionController extends Controller
         $affected = DB::table('collections')
         ->where('id', $request->id)
         ->update([
-            'jenisKoleksi' => $request->jenis,
+            'jenisKoleksi' => $request->jenisKoleksi,
             'jumlahAwal' => $request->jumlahAwal,
             'jumlahSisa' => $request->jumlahSisa,
             'jumlahKeluar' => $request->jumlahKeluar,

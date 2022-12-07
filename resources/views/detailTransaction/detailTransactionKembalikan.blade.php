@@ -13,8 +13,10 @@
                 
                 <form method="POST" action="{{ route('dTransaction.update') }}">
                  @csrf
-
-
+                 
+                
+                 <input type="hidden" class="form-control" name="idCollecion" placeholder="Enter email" value="{{$detailTransaction->idCollection}}" readonly>
+                
                  <div class="form-group mb-2">
                  <label for="transaksi">ID  Transaksi</label>
                  <input type="text" class="form-control" name="idTransaksi" placeholder="Enter email" value="{{$detailTransaction->idTransaksi}}" readonly>

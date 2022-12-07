@@ -23,11 +23,11 @@
                         </div>
                         <div class="mb-3">
                         <label for="jenis" class="form-label">Jenis</label>
-                            <select id="jenis" name="jenis" class="form-select" required>
-                              <option value="-1" @if (old('jenis', $collection->jenis) == -1) selected @endif>Pilih satu</option>
-                              <option value="1" @if (old('jenis', $collection->jenis) == 1) selected @endif>Buku</option>
-                              <option value="2" @if (old('jenis', $collection->jenis) == 2) selected @endif>Majalah</option>
-                              <option value="3" @if (old('jenis', $collection->jenis) == 3) selected @endif>Cakram Digital</option>
+                            <select id="jenis" name="jenisKoleksi" class="form-select" required>
+                              <option value="-1" @if (old('jenisKoleksi', $collection->jenisKoleksi) == -1) selected @endif>Pilih satu</option>
+                              <option value="1" @if (old('jenisKoleksi', $collection->jenisKoleksi) == 1) selected @endif>Buku</option>
+                              <option value="2" @if (old('jenisKoleksi', $collection->jenisKoleksi) == 2) selected @endif>Majalah</option>
+                              <option value="3" @if (old('jenisKoleksi', $collection->jenisKoleksi) == 3) selected @endif>Cakram Digital</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -42,7 +42,7 @@
                             <label for="jumlahKeluar" class="form-label">Jumalah Keluar</label>
                             <input  id="jumlahKeluar" name="jumlahKeluar" type="text" class="form-control" autocomplete="off" value="{{$collection->jumlahKeluar}}" >
                         </div>
-                        <button type="submit" class="btn btn-info">Reset</button>
+                        <button type="reset" class="btn btn-info">Reset</button>
                         
                         <button type="submit" class="btn btn-info">Submit</button>
                     </form>

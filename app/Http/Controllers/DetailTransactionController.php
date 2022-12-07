@@ -83,10 +83,11 @@ class DetailTransactionController extends Controller
             'tanggalKembali' => Carbon::now()->toDateString()
         ]);
         if ($request->status == 2) {
-            DB::table('collections')->increment('jumlahSisa');
-            DB::table('collections')->decrement('jumlahKeluar');
+            
+            DB::table('collections')->where('id',$request->idCollecion)->increment('jumlahSisa');
+            DB::table('collections')->where('id',$request->idCollecion)->decrement('jumlahKeluar');
         }else{
-            DB::table('collections')->increment('jumlahSisa');
+            DB::table('collections')->where('id',$request->idCollecion)->increment('jumlahSisa');
             }
         }
         $transaction = transaction::where('id','=',$request->idTransaksi)->first();
@@ -115,6 +116,7 @@ class DetailTransactionController extends Controller
            'dt.status',
            'u1.fullname as namaPeminjam',
           'u2.fullname as namaPetugas',
+          'c.id as idCollection',
         'c.namaKoleksi as koleksi')
         ->join('collections as c','c.id','=','collectionId')
         ->join('transactions as t','t.id','=','dt.transactionId')

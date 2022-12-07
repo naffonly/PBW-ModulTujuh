@@ -38,23 +38,7 @@
                 <x-input-error :messages="$errors->get('jumlahKoleksi')" class="mt-2" />
             </div>
 
-             <!-- jumlahKoleksi -->
-             <div>
-                <x-input-label for="jumlahSisa" :value="__('jumlahSisa')" />
-
-                <x-text-input id="jumlahSisa" class="block mt-1 w-full" type="text" name="jumlahSisa" :value="old('jumlahSisa')" required autofocus />
-
-                <x-input-error :messages="$errors->get('jumlahSisa')" class="mt-2" />
-            </div>
-
-             <!-- jumlahKoleksi -->
-             <div>
-                <x-input-label for="jumlahKeluar" :value="__('jumlahKeluar')" />
-
-                <x-text-input id="jumlahKeluar" class="block mt-1 w-full" type="text" name="jumlahKeluar" :value="old('jumlahKeluar')" required autofocus />
-
-                <x-input-error :messages="$errors->get('jumlahKeluar')" class="mt-2" />
-            </div>
+           
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" >
